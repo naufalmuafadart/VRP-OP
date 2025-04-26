@@ -1,6 +1,6 @@
 from application.infrastructure.repository.TSPProblemRepository import TSPProblemRepository;
 
-class OPProblemRepository(TSPProblemRepository):
+class TOPProblemRepository(TSPProblemRepository):
     def fitness(self, agent):
         routes = self.transfer(agent, self.DAYS_COUNT)
         assigned_ids = []

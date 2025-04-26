@@ -5,13 +5,13 @@ from application.infrastructure.repository.PandasDataFrameRepository import Pand
 from application.infrastructure.repository.KMeansClusteringRepository import KMeansClusteringRepository
 from application.infrastructure.repository.TSPProblemRepository import TSPProblemRepository
 from application.infrastructure.repository.VRPProblemRepository import VRPProblemRepository
-from application.infrastructure.repository.OPProblemRepository import OPProblemRepository
+from application.infrastructure.repository.TOPProblemRepository import TOPProblemRepository
 from application.infrastructure.repository.SAAlgorithmRepository import SAAlgorithmRepository
 
 # use case
 from application.use_case.RunTSPUseCase import RunTSPUseCase
 from application.use_case.RunVRPUseCase import RunVRPUseCase
-from application.use_case.RunOPUseCase import RunOPUseCase
+from application.use_case.RunTOPUseCase import RunTOPUseCase
 
 # Dependency container
 class Container(containers.DeclarativeContainer):
@@ -19,7 +19,7 @@ class Container(containers.DeclarativeContainer):
     clustering_repository = providers.Singleton(KMeansClusteringRepository)
     tsp_repository = providers.Singleton(TSPProblemRepository)
     vrp_repository = providers.Singleton(VRPProblemRepository)
-    op_repository = providers.Singleton(OPProblemRepository)
+    top_repository = providers.Singleton(TOPProblemRepository)
     bfoa_repository = providers.Singleton(SAAlgorithmRepository)
 
 # Register the container
@@ -55,9 +55,9 @@ use_case.execute(
 )
 
 # Run OP
-use_case = RunOPUseCase(
+use_case = RunTOPUseCase(
     container.data_frame_repository(),
-    container.op_repository(),
+    container.top_repository(),
     container.bfoa_repository()
 )
 

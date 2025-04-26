@@ -1,4 +1,4 @@
-class RunOPUseCase:
+class RunTOPUseCase:
     def __init__(
             self,
             data_frame_repository,
