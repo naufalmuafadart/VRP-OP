@@ -42,7 +42,9 @@ class RunVRPUseCase:
             False
         )
         best_agent = self.algorithm_repository.run()
-        route = self.vrp_repository.transfer(best_agent, n_days)
-        print(route)
-        print('Rata rata rating : ', self.vrp_repository.get_route_average_rating(route))
-        print('Total durasi : ', self.vrp_repository.get_multi_day_travel_duration(route))
+        routes = self.vrp_repository.transfer(best_agent, n_days)
+
+        total_quality = self.vrp_repository.get_route_sum_rating(routes)
+        n_poi = self.vrp_repository.get_number_of_assigned_pois(routes)
+        duration_utilization = self.vrp_repository.get_duration_percentage_utilization(routes)
+        return routes, total_quality, n_poi, duration_utilization
