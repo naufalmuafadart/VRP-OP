@@ -91,6 +91,9 @@ class TSPProblemRepository(ProblemRepository):
             durations += self.get_single_day_travel_duration(route)
         return durations
 
+    def get_poi_rating(self, _id):
+        return self.df_places[self.df_places['id'] == _id].iloc[0]['rating']
+
     def get_average_rating(self, _ids):
         return self.df_places[self.df_places['id'].isin(_ids)].mean(numeric_only=True)['rating']
 
