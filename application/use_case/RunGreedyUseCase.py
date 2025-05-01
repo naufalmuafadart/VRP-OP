@@ -35,7 +35,6 @@ class RunGreedyUseCase:
         self.greedy_repository.set_hotel_id(hotel_id)
 
         routes = self.greedy_repository.run(list(df_poi['id']), n_days)
-        print(routes)
         total_quality = self.greedy_repository.get_route_sum_rating(routes)
         n_poi = self.greedy_repository.get_number_of_assigned_pois(routes)
         duration_utilization = self.greedy_repository.get_duration_percentage_utilization(routes)

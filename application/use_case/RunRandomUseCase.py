@@ -35,7 +35,6 @@ class RunRandomUseCase:
         self.random_repository.set_hotel_id(hotel_id)
 
         routes = self.random_repository.run(list(df_poi['id']), n_days)
-        print(routes)
         total_quality = self.random_repository.get_route_sum_rating(routes)
         n_poi = self.random_repository.get_number_of_assigned_pois(routes)
         duration_utilization = self.random_repository.get_duration_percentage_utilization(routes)
