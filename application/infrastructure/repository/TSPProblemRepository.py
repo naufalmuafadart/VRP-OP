@@ -75,7 +75,7 @@ class TSPProblemRepository(ProblemRepository):
     def get_duration_percentage_utilization(self, routes):
         durations = 0
         for route in routes:
-            durations += self.get_single_day_travel_duration(route)
+            durations += self.get_single_day_duration(route)
         return durations / ((self.ARRIVAL_TIME - self.DEPART_TIME) * self.DAYS_COUNT) * 100
 
     @staticmethod
