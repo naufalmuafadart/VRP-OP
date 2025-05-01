@@ -65,6 +65,25 @@ class TSPProblemRepository(ProblemRepository):
         for day_route in routes:
             assigned_ids.extend(day_route)
         return self.get_average_rating(assigned_ids)
+
+    def get_route_sum_rating(self, routes):
+        assigned_ids = []
+        for day_route in routes:
+            assigned_ids.extend(day_route)
+        return self.get_sum_rating(assigned_ids)
+
+    def get_duration_percentage_utilization(self, routes):
+        durations = 0
+        for route in routes:
+            durations += self.get_single_day_travel_duration(route)
+        return durations / ((self.ARRIVAL_TIME - self.DEPART_TIME) * self.DAYS_COUNT) * 100
+
+    @staticmethod
+    def get_number_of_assigned_pois(routes):
+        assigned_ids = []
+        for day_route in routes:
+            assigned_ids.extend(day_route)
+        return len(assigned_ids)
     
     def get_multi_day_travel_duration(self, routes):
         durations = 0
@@ -74,6 +93,9 @@ class TSPProblemRepository(ProblemRepository):
 
     def get_average_rating(self, _ids):
         return self.df_places[self.df_places['id'].isin(_ids)].mean(numeric_only=True)['rating']
+
+    def get_sum_rating(self, _ids):
+        return self.df_places[self.df_places['id'].isin(_ids)].sum(numeric_only=True)['rating']
 
     def get_single_day_travel_duration(self, single_day_route):
         if len(single_day_route) == 0:

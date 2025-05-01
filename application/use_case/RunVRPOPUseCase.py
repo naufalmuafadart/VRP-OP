@@ -49,6 +49,7 @@ class RunVRPOPUseCase:
         for route in routes:
             route, unassigned_pois = self.vrp_repository.orieenteering(route, unassigned_pois, 2)
 
-        print(routes)
-        print('Rata rata rating : ', self.vrp_repository.get_route_average_rating(routes))
-        print('Total durasi : ', self.vrp_repository.get_multi_day_travel_duration(routes))
+        total_quality = self.vrp_repository.get_route_sum_rating(routes)
+        n_poi = self.vrp_repository.get_number_of_assigned_pois(routes)
+        duration_utilization = self.vrp_repository.get_duration_percentage_utilization(routes)
+        return routes, total_quality, n_poi, duration_utilization
