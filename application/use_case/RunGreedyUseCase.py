@@ -7,7 +7,7 @@ class RunGreedyUseCase:
         self.data_frame_repository = data_frame_repository
         self.greedy_repository = greedy_repository
 
-    def execute(self, selected_pois, n_days, hotel_id):
+    def execute(self, selected_pois, n_days, hotel_id, alfa, beta):
         # Mendapatkan dataset POI
         df_place = self.data_frame_repository.get_data('places')
 
@@ -34,8 +34,12 @@ class RunGreedyUseCase:
         self.greedy_repository.set_selected_pois(list(df_poi['id']))
         self.greedy_repository.set_hotel_id(hotel_id)
 
+        total_quality_poi = self.greedy_repository.get_route_sum_rating([selected_pois])
+
         routes = self.greedy_repository.run(list(df_poi['id']), n_days)
         total_quality = self.greedy_repository.get_route_sum_rating(routes)
+        fitness = alfa * (total_quality / total_quality_poi) - beta * (
+                    self.greedy_repository.get_multi_day_travel_duration(routes) / 200_000)
         n_poi = self.greedy_repository.get_number_of_assigned_pois(routes)
         duration_utilization = self.greedy_repository.get_duration_percentage_utilization(routes)
-        return routes, total_quality, n_poi, duration_utilization
+        return routes, fitness, n_poi, duration_utilization
